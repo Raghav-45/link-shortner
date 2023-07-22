@@ -2,7 +2,7 @@ import Navbar from '@/components/navbar'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
-const linkId = () => {
+const LinkPage = () => {
   const router = useRouter()
   // const [isLoading, setIsLoading] = useState<string>('null')
   const [foundLink, setFoundLink] = useState<string | null>()
@@ -54,4 +54,4 @@ const linkId = () => {
   )
 }
 
-export default linkId
+export default LinkPage
