@@ -1,3 +1,4 @@
+import Navbar from '@/components/navbar'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
@@ -43,6 +44,7 @@ const linkId = () => {
   
   return (
     <>
+      <Navbar />
       {/* {isLoading == 'null' && <div>init...</div>} */}
       {/* {isLoading == 'true' && <div>loading...</div>} */}
       {/* {isLoading == 'false' && <div>ab ni kr rha...</div>} */}
