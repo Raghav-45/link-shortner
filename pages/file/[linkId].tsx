@@ -10,6 +10,7 @@ const LinkPage = () => {
   interface ShortLink {
     id: string;
     url: string;
+    timestamp?: string;
   }
 
   const gg: ShortLink[] = [
