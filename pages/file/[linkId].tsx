@@ -2,10 +2,13 @@ import Navbar from '@/components/Navbar'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
+import { doc, getDoc } from "firebase/firestore"
+import { db } from '@/lib/firebaseClient'
+
 const LinkPage = () => {
   const router = useRouter()
-  // const [isLoading, setIsLoading] = useState<string>('null')
-  const [foundLink, setFoundLink] = useState<string | null>()
+  const [isLoading, setIsLoading] = useState(true)
+  const [foundLink, setFoundLink] = useState<any>()
 
   interface ShortLink {
     id: string;
@@ -24,33 +27,34 @@ const LinkPage = () => {
     {id: 'shadjk8', url: 'google8.com'},
   ]
 
-  function getUrlById(id: string): string | null {
-    const matchingItem = gg.find(item => item.id === id)
-    return matchingItem ? matchingItem.url : null
+  async function getUrlById(id: string): Promise<string | null> {
+    const docRef = doc(db, 'Links', id)
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      const data = docSnap.data().url
+      return data as string
+    }
+    return null
   }
 
   useEffect(() => {
-    if (router.query.linkId) {
-      // setIsLoading('true')
-      const link = getUrlById(router.query.linkId as string)
-      if (!link) {
-        // setIsLoading('false')
-        setFoundLink(null)
-        return
+    const fetchLink = async () => {
+      if (router.query.linkId) {
+        const link = await getUrlById(router.query.linkId as string)
+        setIsLoading(false)
+        setFoundLink(link || null)
+        console.log(link)
       }
-      // setIsLoading('false')
-      setFoundLink(link)
-    }
+    };
+    fetchLink()
   }, [router])
   
   return (
     <>
       <Navbar />
-      {/* {isLoading == 'null' && <div>init...</div>} */}
-      {/* {isLoading == 'true' && <div>loading...</div>} */}
-      {/* {isLoading == 'false' && <div>ab ni kr rha...</div>} */}
-      {!foundLink && <div>url not found</div>}
-      {foundLink && <div>url mil gya</div>}
+      {isLoading && <div>loading...</div>}
+      {!isLoading && !foundLink && <div>url not found</div>}
+      {!isLoading && foundLink && <div>url mil gya = {foundLink}</div>}
     </>
   )
 }
