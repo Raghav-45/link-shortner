@@ -1,35 +1,33 @@
 import Navbar from '@/components/Navbar'
-import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
-import { collection, query, where, getDocs, doc, getDoc, setDoc, addDoc } from "firebase/firestore"
+import { collection, addDoc } from 'firebase/firestore'
 import { db } from '@/lib/firebaseClient'
+import { useRouter } from 'next/router'
 
 const GeneratorPage = () => {
+  const router = useRouter()
 
   const [urlToShorten, setUrlToShorten] = useState('')
+  const [shortLink, setShortLink] = useState('')
+  const baseURL = 'http://localhost:3000'
 
-  const updateLinkOnDB = () => {
-    // const docRef = doc(db, 'Links')
-    const docData = {
-      // id: lat,
+  const updateLinkOnDB = async () => {
+    addDoc(collection(db, "Links"), {
       url: urlToShorten,
-      // uuid: firebase.firestore.Timestamp.now(),
-    }
-    // setDoc(docRef, docData, { merge: false })
-
-    // Add a new document with a generated id.
-    addDoc(collection(db, "Links"), docData)
-
-    // console.log('Updated DB with new location:', lat, lng);
+      // timestamp: '',
+    }).then((docRef) => {setShortLink(docRef.id)})
   }
 
   return (
     <>
       <Navbar />
-      <input placeholder='gg' value={urlToShorten} onChange={(e) => setUrlToShorten(e.target.value)} />
+      <input placeholder='url' value={urlToShorten} onChange={(e) => setUrlToShorten(e.target.value)} />
       <button onClick={() => updateLinkOnDB()}>Generate</button>
-      geenrator
+
+      {shortLink && <div>
+        link generated = <a href={`${baseURL}/file/${shortLink}`}>follow Link</a>
+      </div>}
     </>
   )
 }
