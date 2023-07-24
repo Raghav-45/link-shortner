@@ -7,10 +7,12 @@ import { useRouter } from 'next/router'
 
 const GeneratorPage = () => {
   const router = useRouter()
+  const { protocol, host } = router
+  const baseURL = `${protocol}//${host}`
 
   const [urlToShorten, setUrlToShorten] = useState('')
   const [shortLink, setShortLink] = useState('')
-  const baseURL = 'http://localhost:3000'
+  // const baseURL = 'http://localhost:3000'
 
   const updateLinkOnDB = async () => {
     addDoc(collection(db, "Links"), {
