@@ -7,7 +7,18 @@ import { useRouter } from 'next/router'
 
 const GeneratorPage = () => {
   const router = useRouter()
-  const baseURL = window.location.origin
+
+const getBaseUrl = () => {
+  if (typeof window !== 'undefined') {
+    // Client-side code
+    return window.location.origin;
+  } else {
+    // Server-side code or other environments
+    return ''; // Handle the appropriate fallback value
+  }
+}
+
+  const baseURL = getBaseUrl()
 
   const [urlToShorten, setUrlToShorten] = useState('')
   const [shortLink, setShortLink] = useState('')
