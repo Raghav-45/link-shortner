@@ -13,21 +13,22 @@ const LinkPage = () => {
   const [foundLink, setFoundLink] = useState<any>()
 
   interface ShortLink {
-    id: string;
+    id?: string;
     url: string;
     timestamp?: string;
   }
 
-  const gg: ShortLink[] = [
-    {id: 'shadjk1', url: 'google1.com'},
-    {id: 'shadjk2', url: 'google2.com'},
-    {id: 'shadjk3', url: 'google3.com'},
-    {id: 'shadjk4', url: 'google4.com'},
-    {id: 'shadjk5', url: 'google5.com'},
-    {id: 'shadjk6', url: 'google6.com'},
-    {id: 'shadjk7', url: 'google7.com'},
-    {id: 'shadjk8', url: 'google8.com'},
-  ]
+  interface PreviewData_interface {
+    title?: string;
+    size?: string;
+    downloads?: number;
+  }
+
+  const previewData: PreviewData_interface = {
+    title: 'MimpsbeDd.108p_word4ufree.hair.mkv',
+    size: '5GB',
+    downloads: 1250,
+  }
 
   async function getUrlById(id: string): Promise<string | null> {
     const docRef = doc(db, 'Links', id)
@@ -93,12 +94,12 @@ const LinkPage = () => {
       {!isLoading && !foundLink && <div className='m-4'><p>We&#39;re sorry, but the short link you&#39;ve entered does not exist on our server. Please ensure you&#39;ve entered the correct link or contact the link&#39;s creator for assistance.</p></div>}
       {!isLoading && foundLink && <div className='min-h-screen h-full w-full p-8'>
         <div className='bg-black/5 min-h-[500px] h-full w-full rounded-2xl p-6'>
-          <h3 className="mb-3 break-all text-2xl font-semibold leading-none tracking-tight text-gray-900 dark:text-white">{"MimpsbeDd.108p_word4ufree.hair.mkv"}</h3>
+          <h3 className="mb-3 break-all text-2xl font-semibold leading-none tracking-tight text-gray-900 dark:text-white">{previewData.title}</h3>
           <p className='flex flex-row'>
-            <b className='mr-1'>size:</b>5GB
+            <b className='mr-1'>size:</b>{previewData.size}
           </p>
           <p className='flex flex-row'>
-            <b className='mr-1'>downloads:</b>1250
+            <b className='mr-1'>downloads:</b>{previewData.downloads}
           </p>
           <div className='flex items-center justify-center h-[70px] bg-yellow-300 mt-6 rounded-xl'>
             <p className='text-xl uppercase'>#ads</p>
