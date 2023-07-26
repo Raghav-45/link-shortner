@@ -59,9 +59,11 @@ const LinkPage = () => {
   return (
     <>
       <Navbar />
-      {isLoading && <div>loading...</div>}
-      {!isLoading && !foundLink && <div>url not found</div>}
-      {!isLoading && foundLink && <div>url mil gya = {foundLink}</div>}
+      <div className='m-4'>
+        {isLoading && <p>loading...</p>}
+        {!isLoading && !foundLink && <p>We&#39;re sorry, but the short link you&#39;ve entered does not exist on our server. Please ensure you&#39;ve entered the correct link or contact the link&#39;s creator for assistance.</p>}
+        {!isLoading && foundLink && <p>You are being redirected to the link.<br/>If the page does not load within a few seconds, click here: <a href={foundLink}>{foundLink}</a></p>}
+      </div>
     </>
   )
 }
