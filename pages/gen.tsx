@@ -1,5 +1,6 @@
 import Navbar from '@/components/Navbar'
 import { useState } from 'react'
+import toast, { Toaster } from 'react-hot-toast'
 
 import { collection, addDoc } from 'firebase/firestore'
 import { db } from '@/lib/firebaseClient'
@@ -12,13 +13,30 @@ const GeneratorPage = () => {
 
   const [urlToShorten, setUrlToShorten] = useState('')
   const [shortLink, setShortLink] = useState('')
-  // const baseURL = 'http://localhost:3000'
+
+  const isValidUrl = (urlString: string) => {
+    try { 
+      return Boolean(new URL(urlString))
+    }
+    catch (error) {
+      return false
+    }
+  }
 
   const updateLinkOnDB = async () => {
-    addDoc(collection(db, "Links"), {
-      url: urlToShorten,
-      // timestamp: '',
-    }).then((docRef) => {setShortLink(docRef.id)})
+    if (isValidUrl(urlToShorten)) {
+      addDoc(collection(db, "Links"), {
+        url: urlToShorten,
+        // timestamp: '',
+      }).then((docRef) => {setShortLink(docRef.id)})
+    } else {
+      toast.error('Oops! It seems like you entered an invalid URL.', {
+        style: {
+          width: 'auto',
+        },
+      })
+      console.log('Oops! It seems like you entered an invalid URL.')
+    }
   }
 
   return (
@@ -30,6 +48,7 @@ const GeneratorPage = () => {
       {shortLink && <div>
         link generated = <a href={`${baseURL}/file/${shortLink}`}>follow Link</a>
       </div>}
+      <Toaster />
     </>
   )
 }
