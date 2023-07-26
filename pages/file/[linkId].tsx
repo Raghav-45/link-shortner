@@ -65,21 +65,19 @@ const LinkPage = () => {
       {!isLoading && foundLink && <div className='min-h-screen h-full w-full p-8'>
         <div className='bg-black/5 min-h-[500px] h-full w-full rounded-2xl p-6'>
           <h3 className="mb-3 break-all text-2xl font-semibold leading-none tracking-tight text-gray-900 dark:text-white">{"MimpsbeDd.108p_word4ufree.hair.mkv"}</h3>
-          <div>
-            <p className='inline-block font-bold'>size:</p>
-            <p className='inline-block uppercase'>{"5GB"}</p>
-          </div>
-          <div>
-            <p className='inline-block font-bold'>downloads:</p>
-            <p className='inline-block'>{"1250"}</p>
-          </div>
-          <div className='mt-6 flex items-center justify-center h-[80px] bg-yellow-300'>
+          <p className='flex flex-row'>
+            <b className='mr-1'>size:</b>5GB
+          </p>
+          <p className='flex flex-row'>
+            <b className='mr-1'>downloads:</b>1250
+          </p>
+          <div className='mt-6 flex items-center justify-center h-[70px] bg-yellow-300'>
             <p className='text-xl uppercase'>#ads</p>
           </div>
           <div className='w-full my-4 text-center'>
             <Button onClick={() => externalLinkRedirect(foundLink)} disabled={!foundLink}>Downlaod</Button>
           </div>
-          <div className='mt-6 flex items-center justify-center h-[80px] bg-yellow-300'>
+          <div className='mt-6 flex items-center justify-center h-[70px] bg-yellow-300'>
             <p className='text-xl uppercase'>#ads</p>
           </div>
         </div>
