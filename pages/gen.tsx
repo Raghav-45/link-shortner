@@ -4,14 +4,11 @@ import toast, { Toaster } from 'react-hot-toast'
 
 import { collection, addDoc } from 'firebase/firestore'
 import { db } from '@/lib/firebaseClient'
-import { useRouter } from 'next/router'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Loader2 } from 'lucide-react'
 
 const GeneratorPage = () => {
-  const router = useRouter()
-
   const [isGenerating, setIsGenerating] = useState(false)
   const [urlToShorten, setUrlToShorten] = useState('')
   const [shortLink, setShortLink] = useState('')
@@ -37,7 +34,7 @@ const GeneratorPage = () => {
         setShortLink(docRef.id)
         setIsGenerating(false)
         toast.success('Success! Thank you for using our service!')
-        navigator.clipboard.writeText(`${baseURL}/file/${shortLink}`)
+        navigator.clipboard.writeText(`${baseURL}/file/${docRef.id}`)
         console.log('Success! Thank you for using our service!')
       })
     } else {
