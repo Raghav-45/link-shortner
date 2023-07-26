@@ -42,16 +42,6 @@ const GeneratorPage = () => {
   }
 
   return (
-    // <>
-    //   <Navbar />
-    //   <input placeholder='url' value={urlToShorten} onChange={(e) => setUrlToShorten(e.target.value)} />
-    //   <button onClick={() => updateLinkOnDB()}>Generate</button>
-
-    //   {shortLink && <div>
-    //     link generated = <a href={`${baseURL}/file/${shortLink}`}>follow Link</a>
-    //   </div>}
-    //   <Toaster />
-    // </>
     <>
       <Navbar />
       <div className='my-40'>
