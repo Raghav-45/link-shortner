@@ -10,9 +10,9 @@ import { Loader2 } from 'lucide-react'
 import Link from 'next/link'
 
 const GeneratorPage = () => {
-  const [isGenerating, setIsGenerating] = useState(false)
-  const [urlToShorten, setUrlToShorten] = useState('')
-  const [shortLink, setShortLink] = useState('')
+  const [isGenerating, setIsGenerating] = useState<boolean>(false)
+  const [urlToShorten, setUrlToShorten] = useState<string>('')
+  const [shortLink, setShortLink] = useState<string>('')
 
   const getBaseUrl = () => typeof window !== 'undefined' ? window.location.origin : ''
   const baseURL = getBaseUrl()
@@ -26,7 +26,7 @@ const GeneratorPage = () => {
     }
   }
 
-  const updateLinkOnDB = async () => {
+  const updateLinkOnDB = () => {
     if (isValidUrl(urlToShorten)) {
       addDoc(collection(db, "Links"), {
         url: urlToShorten,
