@@ -55,7 +55,7 @@ const GeneratorPage = () => {
           <div className="bg-white w-full max-w-lg p-8 rounded-lg shadow-md">
             <h1 className="text-3xl font-bold mb-6 text-center">Link Shortener</h1>
             <div className="flex w-full items-center space-x-2">
-              <Input value={shortLink.length != 0 ? shortLink : urlToShorten} onChange={(e) => {setShortLink(''); setUrlToShorten(e.target.value);}} type="url" placeholder="Enter your long URL" required />
+              <Input value={shortLink.length !== 0 ? `${baseURL}/file/${shortLink}` : urlToShorten} onChange={(e) => {setShortLink(''); setUrlToShorten(e.target.value);}} type="url" placeholder="Enter your long URL" required />
               <Button onClick={() => {setIsGenerating(true); updateLinkOnDB();}}>
                 {isGenerating && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                 {shortLink ? 'Copied!' : 'Shorten'}
