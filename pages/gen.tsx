@@ -7,6 +7,7 @@ import { db } from '@/lib/firebaseClient'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Loader2 } from 'lucide-react'
+import Link from 'next/link'
 
 const GeneratorPage = () => {
   const [isGenerating, setIsGenerating] = useState(false)
@@ -58,9 +59,9 @@ const GeneratorPage = () => {
                 {shortLink ? 'Copied!' : 'Shorten'}
               </Button>
             </div>
-            {shortLink &&<div className="ml-1 mt-3">
-              link generated = <a href={`${baseURL}/file/${shortLink}`}>follow Link</a>
-            </div>}
+            {shortLink && <Button variant="link" asChild>
+              <Link href={`/file/${shortLink}`}>Open Link</Link>
+            </Button>}
           </div>
         </div>
       </div>
