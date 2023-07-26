@@ -37,12 +37,19 @@ const LinkPage = () => {
     return null
   }
 
+  const externalLinkRedirect = (externalLink: string): void => {
+    if (typeof window !== 'undefined') {
+      window.location.href = externalLink;
+    }
+  }
+
   useEffect(() => {
     const fetchLink = async () => {
       if (router.query.linkId) {
         const link = await getUrlById(router.query.linkId as string)
         setIsLoading(false)
         setFoundLink(link || null)
+        link && externalLinkRedirect(link)
         console.log(link)
       }
     };
