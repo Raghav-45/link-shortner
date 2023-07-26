@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import { doc, getDoc } from "firebase/firestore"
 import { db } from '@/lib/firebaseClient'
 import { Button } from '@/components/ui/button'
+import { Loader2 } from 'lucide-react'
 
 const LinkPage = () => {
   const router = useRouter()
@@ -56,7 +57,35 @@ const LinkPage = () => {
     };
     fetchLink()
   }, [router])
+
+  function CountdownButton(props: any) {
+    const [countdown, setCountdown] = useState<number>(10)
+    const [isCounting, setIsCounting] = useState<boolean>(true)
   
+    useEffect(() => {
+      let timer: NodeJS.Timeout
+      if (isCounting && countdown > 0) {
+        timer = setInterval(() => {
+          setCountdown((prevCountdown) => prevCountdown - 1)
+        }, 1000)
+      } else {
+        setIsCounting(false)
+      }
+      
+      return () => clearInterval(timer)
+    }, [countdown, isCounting])
+
+    return (
+      <Button
+        disabled={isCounting}
+        onClick={props.onClick}
+      >
+        {isCounting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+        {isCounting ? `Wait ${countdown}s` : 'Download'}
+      </Button>
+    );
+  }
+
   return (
     <>
       <Navbar />
@@ -71,13 +100,14 @@ const LinkPage = () => {
           <p className='flex flex-row'>
             <b className='mr-1'>downloads:</b>1250
           </p>
-          <div className='mt-6 flex items-center justify-center h-[70px] bg-yellow-300'>
+          <div className='flex items-center justify-center h-[70px] bg-yellow-300 mt-6 rounded-xl'>
             <p className='text-xl uppercase'>#ads</p>
           </div>
-          <div className='w-full my-4 text-center'>
-            <Button onClick={() => externalLinkRedirect(foundLink)} disabled={!foundLink}>Downlaod</Button>
+          <div className='w-full my-6 text-center'>
+            {/* <Button onClick={() => externalLinkRedirect(foundLink)} disabled={!foundLink}>Download</Button> */}
+            <CountdownButton onClick={() => externalLinkRedirect(foundLink)}>Downlaod</CountdownButton>
           </div>
-          <div className='mt-6 flex items-center justify-center h-[70px] bg-yellow-300'>
+          <div className='flex items-center justify-center h-[70px] bg-yellow-300 rounded-xl'>
             <p className='text-xl uppercase'>#ads</p>
           </div>
         </div>
