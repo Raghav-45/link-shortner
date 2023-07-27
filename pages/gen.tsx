@@ -11,25 +11,20 @@ import Link from 'next/link'
 
 const GeneratorPage = () => {
   const [isGenerating, setIsGenerating] = useState<boolean>(false)
-  const [urlToShorten, setUrlToShorten] = useState<string>('')
+  const [pathToGenerate, setPathToGenerate] = useState<string>('')
   const [shortLink, setShortLink] = useState<string>('')
 
   const getBaseUrl = () => typeof window !== 'undefined' ? window.location.origin : ''
   const baseURL = getBaseUrl()
 
-  const isValidUrl = (urlString: string): boolean => {
-    try { 
-      return Boolean(new URL(urlString))
-    }
-    catch (error) {
-      return false
-    }
+  const isValidPath = (path: string): boolean => {
+    return path.startsWith('/')
   }
 
-  const updateLinkOnDB = () => {
-    if (isValidUrl(urlToShorten)) {
-      addDoc(collection(db, "Links"), {
-        url: urlToShorten,
+  const updateDataOnDB = () => {
+    if (pathToGenerate.length !== 0 && isValidPath(pathToGenerate)) {
+      addDoc(collection(db, "Short-links"), {
+        path: pathToGenerate,
         // timestamp: '',
       }).then((docRef) => {
         setShortLink(docRef.id)
@@ -40,8 +35,8 @@ const GeneratorPage = () => {
       })
     } else {
       setIsGenerating(false)
-      toast.error('Oops! It seems like you entered an invalid URL.')
-      console.log('Oops! It seems like you entered an invalid URL.')
+      toast.error('Oops! It seems like you entered an invalid file path.')
+      console.log('Oops! It seems like you entered an invalid file path.')
     }
   }
 
@@ -53,8 +48,8 @@ const GeneratorPage = () => {
           <div className="bg-white w-full max-w-lg p-8 rounded-lg shadow-md">
             <h1 className="text-3xl font-bold mb-6 text-center">Link Shortener</h1>
             <div className="flex w-full items-center space-x-2">
-              <Input value={shortLink.length !== 0 ? `${baseURL}/file/${shortLink}` : urlToShorten} onChange={(e) => {setShortLink(''); setUrlToShorten(e.target.value);}} type="url" placeholder="Enter your long URL" required />
-              <Button onClick={() => {setIsGenerating(true); updateLinkOnDB();}}>
+              <Input value={shortLink.length !== 0 ? `${baseURL}/file/${shortLink}` : pathToGenerate} onChange={(e) => {setShortLink(''); setPathToGenerate(e.target.value);}} type="url" placeholder="Enter Google Drive file path (e.g., /folder/subfolder/filename.ext)" required />
+              <Button onClick={() => {setIsGenerating(true); updateDataOnDB();}}>
                 {isGenerating && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                 {shortLink ? 'Copied!' : 'Shorten'}
               </Button>
