@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import { doc, getDoc } from "firebase/firestore"
 import { db } from '@/lib/firebaseClient'
@@ -12,19 +12,19 @@ const LinkPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [link, setLink] = useState<string | null>()
 
-  const previewData = {
-    title: 'MimpsbeDd.108p_word4ufree.hair.mkv',
-    size: '5GB',
-    downloads: 1250,
-  }
-
   const [fileName, setFileName] = useState('MimpsbeDd.108p_word4ufree.hair.mkv')
   const [fileSize, setFileSize] = useState('5GB')
   const [fileDownloads, setFileDownloads] = useState(5000)
 
   const workers = [
     'myworker.adi4545aditya.workers.dev',
+    'm4movies123.file-jiocloud.workers.dev',
+    'netflix.amazoncloud123.workers.dev',
   ]
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const randomNumber = useMemo(() => Math.floor(Math.random() * (workers.length)), [])
+  const randomWorker = workers[randomNumber]
 
   function JSONToBase64(jsonObj: {[key: string]: any}): string {
     const jsonString = JSON.stringify(jsonObj)
@@ -43,7 +43,7 @@ const LinkPage = () => {
     const filename = getFileName(path)
     setFileName(filename)
     const tokenBase64 = JSONToBase64(token)
-    return `https://${workers[0]}/${tokenBase64}/${filename}`
+    return `https://${randomWorker}/${tokenBase64}/${filename}`
   }
 
   async function getPathById(id: string): Promise<string | null> {
