@@ -139,7 +139,7 @@ export default function Navbar() {
                     'block rounded-md px-3 py-2 text-base font-medium'
                   )}
                   aria-current={item.current ? 'page' : undefined}
-                  onClick={() => close()}
+                  // onClick={() => close()}
                 >
                   {item.name}
                 </Link>
