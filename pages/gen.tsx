@@ -55,7 +55,7 @@ const GeneratorPage = () => {
               </Button>
             </div>
             {shortLink && <Button variant="link" asChild>
-              <Link href={`/file/${shortLink}`}>Open Link</Link>
+              <Link href={`/file/${shortLink}`}>Open this Link</Link>
             </Button>}
           </div>
         </div>
