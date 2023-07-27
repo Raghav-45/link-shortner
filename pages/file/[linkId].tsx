@@ -6,21 +6,16 @@ import { doc, getDoc } from "firebase/firestore"
 import { db } from '@/lib/firebaseClient'
 import { Button } from '@/components/ui/button'
 import { Loader2 } from 'lucide-react'
+import { workers } from '@/lib/workersList.js'
 
 const LinkPage = () => {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [link, setLink] = useState<string | null>()
 
-  const [fileName, setFileName] = useState('MimpsbeDd.108p_word4ufree.hair.mkv')
+  const [fileName, setFileName] = useState('{{File Name}}')
   const [fileSize, setFileSize] = useState('5GB')
   const [fileDownloads, setFileDownloads] = useState(5000)
-
-  const workers = [
-    'myworker.adi4545aditya.workers.dev',
-    'm4movies123.file-jiocloud.workers.dev',
-    'netflix.amazoncloud123.workers.dev',
-  ]
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const randomNumber = useMemo(() => Math.floor(Math.random() * (workers.length)), [])
