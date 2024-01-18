@@ -25,7 +25,7 @@ const LinkPage = () => {
   }
 
   const previewData: PreviewData_interface = {
-    title: 'Generating link',
+    title: 'Generating link...',
     size: '5GB',
     downloads: 1250,
   }
@@ -99,7 +99,7 @@ const LinkPage = () => {
             <b className='mr-1'>size:</b>{previewData.size}
           </p>
           <p className='flex flex-row'>
-            <b className='mr-1'>downloads:</b>{previewData.downloads}
+            <b className='mr-1'>Page Visits:</b>{previewData.downloads}
           </p>
           <div className='flex items-center justify-center h-[70px] bg-yellow-300 mt-6 rounded-xl'>
             <p className='text-xl uppercase'>#ads</p>
