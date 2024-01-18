@@ -25,7 +25,7 @@ const LinkPage = () => {
   }
 
   const previewData: PreviewData_interface = {
-    title: 'MimpsbeDd.108p_word4ufree.hair.mkv',
+    title: 'Generating link',
     size: '5GB',
     downloads: 1250,
   }
