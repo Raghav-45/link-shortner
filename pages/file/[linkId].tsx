@@ -82,7 +82,7 @@ const LinkPage = () => {
         onClick={props.onClick}
       >
         {isCounting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-        {isCounting ? `Wait ${countdown}s` : 'Download'}
+        {isCounting ? `Wait ${countdown}s` : 'Continue'}
       </Button>
     );
   }
