@@ -96,10 +96,7 @@ const LinkPage = () => {
         <div className='bg-black/5 min-h-[500px] h-full w-full rounded-2xl p-6'>
           <h3 className="mb-3 break-all text-2xl font-semibold leading-none tracking-tight text-gray-900 dark:text-white">{previewData.title}</h3>
           <p className='flex flex-row'>
-            <b className='mr-1'>size:</b>{previewData.size}
-          </p>
-          <p className='flex flex-row'>
-            <b className='mr-1'>Page Visits:</b>{previewData.downloads}
+            <b className='mr-1'>page views:</b>{previewData.downloads}
           </p>
           <div className='flex items-center justify-center h-[70px] bg-yellow-300 mt-6 rounded-xl'>
             <p className='text-xl uppercase'>#ads</p>
